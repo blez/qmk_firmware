@@ -6,7 +6,7 @@
 enum custom_keycodes {
     GO_EQ = SAFE_RANGE,
     ARROW,
-    EQ_EQ,
+    LAMBDA,
     NO_EQ
 };
 
@@ -22,7 +22,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("->");
       }
       return false;
-    case EQ_EQ:
+    case LAMBDA:
       if (record->event.pressed) {
         SEND_STRING("=>");
       }
@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC, LT(MO(1), KC_SPC), ARROW, KC_MINS, LT(MO(2), KC_ENT), KC_GRV
     ),
 [1] = LAYOUT_split_3x6_3(
-    KC_DEL, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_LPRN, KC_RPRN, KC_AMPR, KC_NO, KC_TRNS,
+    KC_DEL, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_LPRN, KC_RPRN, KC_AMPR, KC_NO, LAMBDA,
     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_DQUO, KC_LCBR, KC_RCBR, KC_PIPE, KC_PAST, KC_QUOT,
     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, GO_EQ, KC_LBRC, KC_RBRC, NO_EQ, KC_BSLS, KC_TRNS,
     KC_TRNS, KC_NO, KC_NO, KC_TRNS, MO(3), KC_TRNS
