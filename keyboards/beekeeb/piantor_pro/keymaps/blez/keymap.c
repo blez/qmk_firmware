@@ -69,39 +69,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
     )
 };
-
-// The layer-taps are exempt from Chordal Hold's opposite-hands rule, since both
-// layers use same-hand keys (SYM's left top row, NUM's right-hand mods). Home
-// row mods keep the rule, including against the thumb keys.
-bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t *tap_hold_record, uint16_t other_keycode, keyrecord_t *other_record) {
-  switch (tap_hold_keycode) {
-    case LT(SYM, KC_SPC):
-    case LT(NUM, KC_ENT):
-      return true;
-    // Right Shift with right-hand punctuation: ? < > +
-    case RSFT_T(KC_J):
-      switch (other_keycode) {
-        case KC_SLSH:
-        case KC_COMM:
-        case KC_DOT:
-        case KC_EQL:
-          return true;
-      }
-      break;
-  }
-  return get_chordal_hold_default(tap_hold_record, other_record);
-}
-
-// No Flow Tap on the Shift keys, so shifted punctuation and capitals typed
-// right after a letter (e.g. "ideas?") still shift.
-uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_keycode) {
-  switch (keycode) {
-    case LSFT_T(KC_F):
-    case RSFT_T(KC_J):
-      return 0;
-  }
-  if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
-    return FLOW_TAP_TERM;
-  }
-  return 0;
-}
